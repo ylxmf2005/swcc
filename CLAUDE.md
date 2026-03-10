@@ -5,7 +5,7 @@
 ## Overview
 
 SWCC orchestrates multiple Claude Code agents through a democratic centralism workflow:
-consultation (政协协商) → decision (党委决策) → execution (部委执行) → inspection (纪委监察).
+brainstorming (政研室调研) → consultation (政协协商) → decision (党委决策) → execution (部委执行) → inspection (纪委三维审查).
 
 This is a direct task-to-code pipeline.
 
@@ -14,21 +14,22 @@ This is a direct task-to-code pipeline.
 ```
 .claude-plugin/
   marketplace.json       Plugin manifest
-  agents/                9 agent definitions (zhongban, zuopai, youpai, zhongjian, dangwei, guowuyuan, buwei, jiwei, zhiku)
-  skills/                5 user-invocable skills (zhili, xieshang, zhixing, jicha, juguo)
+  agents/                10 agent definitions (zhongban, zhengyanshi, zuopai, youpai, zhongjian, dangwei, guowuyuan, buwei, jiwei, zhiku)
+  skills/                7 user-invocable skills (zhili, xieshang, zhixing, jicha, juguo, zhiku, zhengyanshi)
   hooks/                 Lifecycle hooks (currently empty)
 ```
 
 ## Agent Roles
 
 - **zhongban** (中办): Task triage, scale assessment (opus)
-- **zuopai** (左派): Bold innovative proposals with SOTA research (opus)
-- **youpai** (右派): Conservative stable proposals with minimal changes (opus)
-- **zhongjian** (中间路线): Centrist synthesis of left and right (opus)
+- **zhengyanshi** (政研室): Pre-consultation brainstorming, problem space exploration, 2-3 approach proposals (opus)
+- **zuopai** (政协左派): Bold innovative proposals with SOTA research (opus)
+- **youpai** (政协右派): Conservative stable proposals with minimal changes (opus)
+- **zhongjian** (政协中间): Centrist synthesis of left and right (opus)
 - **dangwei** (党委): Authoritative final decision (opus)
 - **guowuyuan** (国务院): Task decomposition and scheduling (opus)
 - **buwei** (部委): Concrete code execution (opus)
-- **jiwei** (纪委): Code review + automated verification (opus)
+- **jiwei** (纪委): Multi-mode oversight — decision review, task review, 3-specialist execution review with cross-challenge (opus)
 - **zhiku** (智库): On-demand research with 4 modes: 社科院/发改委/工程院/审计署 (opus)
 
 ## Key Conventions

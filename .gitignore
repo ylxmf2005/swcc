@@ -14,3 +14,6 @@ Thumbs.db
 
 # Claude Code local config
 .claude/settings.local.json
+
+# Codex (separate branch)
+.codex/

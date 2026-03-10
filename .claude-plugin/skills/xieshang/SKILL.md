@@ -1,12 +1,12 @@
 ---
 name: xieshang
-description: "Consultation only: run CPPCC left-right debate and Party Committee decision without code execution. Use when you want to see the plan before committing to execution."
+description: "Consultation only: run brainstorming + CPPCC left-right debate and Party Committee decision without code execution. Use when you want to see the plan before committing to execution."
 argument-hint: "task description"
 ---
 
 # 协商（/xieshang）— 仅政协协商 + 党委决策
 
-运行中办分拣 → 政协协商 → 党委决策，产出实施方案但**不执行代码变更**。
+运行中办分拣 → 政研室调研 → 政协协商 → 党委决策，产出实施方案但**不执行代码变更**。
 
 ## 重要原则
 
@@ -45,7 +45,35 @@ Agent tool parameters:
 
 等待完成。读取 `{SESSION_DIR}/zhongban-report.md` 提取 `SCALE`。
 
-### Step 3: 政协协商
+### Step 3: 政研室调研
+
+```
+Agent tool parameters:
+  subagent_type: "swcc:zhengyanshi"
+  prompt: "请对以下任务进行前期调研与方案预研：
+
+任务描述：{TASK_DESC}
+
+中办分拣报告请从此文件读取：`{SESSION_DIR}/zhongban-report.md`
+
+请按照你的工作流程，深入调查项目上下文、识别关键问题和模糊点、提出 2-3 种可选方向。
+
+请将报告保存到 `{SESSION_DIR}/zhengyanshi-report.md`"
+  description: "政研室前期调研"
+```
+
+等待完成。读取报告展示给用户。
+
+**向用户确认方向：**
+
+```
+政研室调研完成。请确认方向后继续协商。
+输入你的选择或反馈。如无异议，回复"继续"。
+```
+
+**等待用户回复。** 记为 `USER_DIRECTION`。
+
+### Step 4: 政协协商
 
 **无论规模大小，/xieshang 总是进行协商**（即使是小任务也跑，因为用户显式要求了协商）。
 
@@ -58,9 +86,12 @@ Agent call #1:
 
 任务描述：{TASK_DESC}
 中办代码库摘要请从此文件读取：`{SESSION_DIR}/zhongban-report.md`
+政研室调研报告请从此文件读取：`{SESSION_DIR}/zhengyanshi-report.md`
+{如果有 USER_DIRECTION：}
+用户确认的方向：{USER_DIRECTION}
 
 请将报告保存到 `{SESSION_DIR}/zuopai-proposal.md`"
-  description: "左派委员提案"
+  description: "政协左派提案"
 
 Agent call #2:
   subagent_type: "swcc:youpai"
@@ -68,9 +99,12 @@ Agent call #2:
 
 任务描述：{TASK_DESC}
 中办代码库摘要请从此文件读取：`{SESSION_DIR}/zhongban-report.md`
+政研室调研报告请从此文件读取：`{SESSION_DIR}/zhengyanshi-report.md`
+{如果有 USER_DIRECTION：}
+用户确认的方向：{USER_DIRECTION}
 
 请将报告保存到 `{SESSION_DIR}/youpai-proposal.md`"
-  description: "右派委员提案"
+  description: "政协右派提案"
 ```
 
 等待完成。
@@ -86,6 +120,7 @@ Agent tool parameters:
 
 请从以下文件读取上游报告：
 - 中办分拣报告：`{SESSION_DIR}/zhongban-report.md`
+- 政研室调研报告：`{SESSION_DIR}/zhengyanshi-report.md`
 - 左派方案：`{SESSION_DIR}/zuopai-proposal.md`
 - 右派方案：`{SESSION_DIR}/youpai-proposal.md`
 
@@ -95,7 +130,7 @@ Agent tool parameters:
 
 等待完成。
 
-### Step 4: 党委集中决策
+### Step 5: 党委集中决策
 
 ```
 Agent tool parameters:
@@ -106,10 +141,13 @@ Agent tool parameters:
 
 请从以下文件读取各方报告：
 - 中办分拣报告：`{SESSION_DIR}/zhongban-report.md`
+- 政研室调研报告：`{SESSION_DIR}/zhengyanshi-report.md`
 - 左派方案：`{SESSION_DIR}/zuopai-proposal.md`
 - 右派方案：`{SESSION_DIR}/youpai-proposal.md`
 {如果 SCALE = 大，加上：}
 - 中间路线方案：`{SESSION_DIR}/zhongjian-proposal.md`
+{如果有 USER_DIRECTION：}
+- 用户确认的方向：{USER_DIRECTION}
 
 请将决策报告保存到 `{SESSION_DIR}/dangwei-decision.md`"
   description: "党委集中决策"
@@ -117,7 +155,7 @@ Agent tool parameters:
 
 等待完成。
 
-### Step 5: 报告结果
+### Step 6: 报告结果
 
 读取 `{SESSION_DIR}/dangwei-decision.md` 的完整内容并展示给用户。
 
