@@ -191,7 +191,6 @@ claude plugins install --path ./swcc
     ├── jiwei-final-correctness.md     # 🔍 正确性交叉质疑终稿
     ├── jiwei-final-design.md          # 🔍 设计交叉质疑终稿
     ├── jiwei-final-standards.md       # 🔍 规范交叉质疑终稿
-    ├── zhengxie-pingyi.md             # 🟡 政协民主评议
     └── zhiku-report.md                # 📚 智库调研报告（按需）
 ```
 

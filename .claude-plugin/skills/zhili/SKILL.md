@@ -295,9 +295,9 @@ Agent call #N:
 
 等待该批全部完成。继续下一批。
 
-### Step 10: 纪委三维审查 + 政协评议
+### Step 10: 纪委三维审查
 
-**同时**调用 3 个纪委专项 + 政协评议（**1 条消息，4 个 Agent 调用**）：
+**同时**调用 3 个纪委专项（**1 条消息，3 个 Agent 调用**）：
 
 ```
 Agent call #1:
@@ -376,30 +376,6 @@ Agent call #3:
 请将审查报告保存到 `{SESSION_DIR}/jiwei-verdict-standards.md`"
   description: "纪委规范审查"
 
-Agent call #4:
-  subagent_type: "swcc:zhongjian"
-  prompt: "【政协评议】请对本次代码变更进行质量评议。
-
-你现在的角色不是提方案，而是作为政协代表对执行结果进行民主监督。
-
-任务描述：{TASK_DESC}
-
-{如果 SCALE = 中/大：}
-请从以下文件读取背景：
-- 党委决策：`{SESSION_DIR}/dangwei-decision.md`
-- 左派方案：`{SESSION_DIR}/zuopai-proposal.md`
-- 右派方案：`{SESSION_DIR}/youpai-proposal.md`
-
-请用 git diff 查看所有代码变更，然后评议：
-1. 实现是否达到了任务的预期目标
-2. 代码设计是否合理、可维护
-3. 是否忠实体现了协商阶段的讨论精神
-4. 有没有可以做得更好的地方
-
-你的意见是建设性的建议，不具有驳回权力。
-
-请将评议报告保存到 `{SESSION_DIR}/zhengxie-pingyi.md`"
-  description: "政协民主评议"
 ```
 
 等待全部完成。
@@ -481,15 +457,13 @@ Agent call #3:
 - `{SESSION_DIR}/jiwei-final-correctness.md`
 - `{SESSION_DIR}/jiwei-final-design.md`
 - `{SESSION_DIR}/jiwei-final-standards.md`
-- `{SESSION_DIR}/zhengxie-pingyi.md`
 
-**全部通过：** 向用户报告完成。展示三个专项的审查结论和政协评议意见。提示：`所有中间产物保存在 {SESSION_DIR}/`
+**全部通过：** 向用户报告完成。展示三个专项的审查结论。提示：`所有中间产物保存在 {SESSION_DIR}/`
 
-**任一驳回且重试 < 2：** 汇总所有"必须修复"项，重新构建子任务，将纪委意见和政协评议一并传给新的 buwei agent，回到 Step 9。
+**任一驳回且重试 < 2：** 汇总所有"必须修复"项，重新构建子任务，将纪委意见传给新的 buwei agent，回到 Step 9。
 
 **驳回且重试 >= 2：** 报告失败，建议人工介入。提示：`所有中间产物保存在 {SESSION_DIR}/`
 
-> 只有纪委有驳回权。政协评议仅供参考，即使政协认为"不够好"，只要纪委判定"没问题"，就算通过。
 > 三个专项中**任何一个**判定驳回，整体即为驳回。
 
 ---
