@@ -1,0 +1,16 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Runtime artifacts
+.tmp/
+*.log
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code local config
+.claude/settings.local.json

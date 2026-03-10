@@ -1,0 +1,30 @@
+{
+  "name": "swcc",
+  "owner": {
+    "name": "EthanLee"
+  },
+  "plugins": [
+    {
+      "name": "swcc",
+      "source": "./.claude-plugin/",
+      "description": "Democratic centralism multi-agent orchestration for Claude Code. 8 agents, 5 skills for full-pipeline task-to-code delivery (民主集中制多智能体编排)",
+      "version": "0.1.0",
+      "author": {
+        "name": "EthanLee"
+      },
+      "homepage": "https://github.com/ylxmf2005/swcc",
+      "repository": "https://github.com/ylxmf2005/swcc",
+      "license": "MIT",
+      "keywords": [
+        "multi-agent",
+        "orchestration",
+        "democratic-centralism",
+        "zhili",
+        "planning",
+        "code-review"
+      ],
+      "category": "development",
+      "strict": false
+    }
+  ]
+}
