@@ -1,0 +1,6 @@
+interface:
+  display_name: "协商 / Xieshang"
+  short_description: "Debate options and issue a plan"
+  default_prompt: "Use $xieshang to generate an SWCC consultation plan for this task."
+policy:
+  allow_implicit_invocation: false

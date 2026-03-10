@@ -1,0 +1,6 @@
+interface:
+  display_name: "治理 / Zhili"
+  short_description: "Run the full SWCC coding workflow"
+  default_prompt: "Use $zhili to run the full SWCC workflow for this coding task."
+policy:
+  allow_implicit_invocation: false

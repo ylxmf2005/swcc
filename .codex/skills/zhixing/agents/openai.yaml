@@ -1,0 +1,6 @@
+interface:
+  display_name: "执行 / Zhixing"
+  short_description: "Execute an approved SWCC plan"
+  default_prompt: "Use $zhixing to execute the approved SWCC plan for this task."
+policy:
+  allow_implicit_invocation: false

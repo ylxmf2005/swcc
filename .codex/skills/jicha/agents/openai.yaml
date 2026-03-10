@@ -1,0 +1,6 @@
+interface:
+  display_name: "监察 / Jicha"
+  short_description: "Review changes and run verification"
+  default_prompt: "Use $jicha to review the current code changes with SWCC inspection rules."
+policy:
+  allow_implicit_invocation: false
