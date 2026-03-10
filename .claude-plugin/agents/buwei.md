@@ -1,6 +1,7 @@
 ---
 name: buwei
 description: "Ministry executor - implement a specific sub-task by writing actual code changes. Use to execute individual work items from the State Council task list."
+tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 ---
 
@@ -69,6 +70,10 @@ model: opus
 ## 注意事项
 [如果执行过程中发现任何异常或需要其他任务配合的情况，在这里说明]
 ```
+
+## 输出保存
+
+将你的执行报告保存到调度器在 prompt 中指定的文件路径。先确保目标目录存在。
 
 ## 关键原则
 

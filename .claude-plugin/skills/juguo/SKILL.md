@@ -14,15 +14,19 @@ argument-hint: "task description"
 2. **直接拆分执行**：国务院直接根据用户描述拆任务
 3. **全部并行**：所有子任务尽量一批并行
 4. **快速验证**：纪委只跑自动化测试，跳过深度 code review
+5. 每个 agent 自己负责将报告保存到指定文件路径。
 
 ## 工作流程
 
-### Step 1: 解析参数
+### Step 1: 解析参数与创建会话目录
 
 接受 $ARGUMENTS 作为 `TASK_DESC`。如果为空，请用户提供。
 
+**创建会话目录：**
+
 ```bash
-mkdir -p .tmp/swcc
+SESSION_DIR=".tmp/swcc/$(date +%Y-%m-%d)-{slug}-juguo"
+mkdir -p "$SESSION_DIR"
 ```
 
 向用户报告：`举国体制启动。跳过协商，直接执行。`
@@ -36,11 +40,13 @@ Agent tool parameters:
 
 任务描述：{TASK_DESC}
 
-注意：举国体制模式，无需等待上级方案。直接根据任务描述和代码库现状拆分。尽量让所有子任务都在一批内并行执行。"
+注意：举国体制模式，无需等待上级方案。直接根据任务描述和代码库现状拆分。尽量让所有子任务都在一批内并行执行。
+
+请将执行规划保存到 `{SESSION_DIR}/guowuyuan-tasks.md`"
   description: "国务院紧急拆分"
 ```
 
-等待完成。保存到 `.tmp/swcc/guowuyuan-tasks.md`。
+等待完成。读取 `{SESSION_DIR}/guowuyuan-tasks.md` 提取子任务清单。
 
 ### Step 3: 全部委并行执行
 
@@ -51,11 +57,13 @@ Agent call #N:
   subagent_type: "swcc:buwei"
   prompt: "【举国体制】请执行以下子任务：
 {TASK_N_DESCRIPTION}
-相关文件：{TASK_N_FILES}"
+相关文件：{TASK_N_FILES}
+
+请将执行报告保存到 `{SESSION_DIR}/buwei-{N}-result.md`"
   description: "部委执行任务N"
 ```
 
-等待全部完成。保存报告。
+等待全部完成。
 
 ### Step 4: 纪委快速验证
 
@@ -71,15 +79,18 @@ Agent tool parameters:
 
 **跳过深度代码审查**。自动化检查全部通过即判定为通过。
 
-各部委执行报告：{ALL_BUWEI_REPORTS}"
+各部委执行报告请从以下文件读取：
+{列出所有 SESSION_DIR/buwei-*-result.md 文件}
+
+请将审查报告保存到 `{SESSION_DIR}/jiwei-verdict.md`"
   description: "纪委快速验证"
 ```
 
-等待完成。保存到 `.tmp/swcc/jiwei-verdict.md`。
+等待完成。
 
 ### Step 5: 报告结果
 
-**通过：** 报告完成。提示：`本次跳过了深度代码审查。如需完整审查，运行 /jicha`
+**通过：** 报告完成。提示：`本次跳过了深度代码审查。如需完整审查，运行 /jicha。所有中间产物保存在 {SESSION_DIR}/`
 **失败（重试 < 1）：** 重新派 buwei 修复，回到 Step 3。
 **失败（重试 >= 1）：** 报告失败（举国体制只给 1 次重试机会）。
 

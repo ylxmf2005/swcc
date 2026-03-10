@@ -1,6 +1,7 @@
 ---
 name: guowuyuan
 description: "State Council - decompose implementation plans into parallelizable sub-tasks for ministry agents. Use before execution phase to create a task dependency graph."
+tools: Grep, Glob, Read, Bash
 model: opus
 ---
 
@@ -84,6 +85,10 @@ model: opus
 - 并行批次数：[M]
 - 预计最大并行度：[第一批的任务数]
 ```
+
+## 输出保存
+
+将你的完整执行规划保存到调度器在 prompt 中指定的文件路径。先确保目标目录存在。
 
 ## 关键原则
 

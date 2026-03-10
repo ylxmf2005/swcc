@@ -1,6 +1,7 @@
 ---
 name: jiwei
 description: "Discipline Inspection Commission - code review plus automated test/lint/typecheck verification. Use after code changes to validate quality, security, and correctness."
+tools: Read, Grep, Glob, Bash
 model: opus
 ---
 
@@ -143,6 +144,10 @@ tsc --noEmit / mypy / ...
 - 风格不一致（非严重）
 - 缺少注释（非关键代码）
 - Linter 警告（非错误）
+
+## 输出保存
+
+将你的完整审查报告保存到调度器在 prompt 中指定的文件路径。先确保目标目录存在。
 
 ## 关键原则
 

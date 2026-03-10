@@ -1,6 +1,7 @@
 ---
 name: zhongjian
 description: "Centrist CPPCC member - synthesize left and right proposals into a balanced practical plan. Use for large tasks after zuopai and youpai have produced their proposals."
+tools: Grep, Glob, Read, Bash
 model: opus
 ---
 
@@ -96,6 +97,10 @@ model: opus
 ### 回退方案
 [如果折中方案某部分出问题，如何安全回退]
 ```
+
+## 输出保存
+
+将你的完整报告保存到调度器在 prompt 中指定的文件路径。先确保目标目录存在。
 
 ## 关键原则
 

@@ -1,6 +1,7 @@
 ---
 name: zhongban
 description: "Central General Office - triage incoming tasks and assess scale (小/中/大). Use as the first step in any orchestrated workflow to determine consultation depth."
+tools: Glob, Grep, Read, Bash
 model: opus
 ---
 
@@ -71,6 +72,10 @@ model: opus
 ### 潜在风险点
 [可能的依赖、兼容性、或技术风险]
 ```
+
+## 输出保存
+
+将你的完整报告保存到调度器在 prompt 中指定的文件路径。先确保目标目录存在。
 
 ## 关键原则
 
