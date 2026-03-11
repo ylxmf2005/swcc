@@ -50,7 +50,7 @@
 ```bash
 # 安装
 claude plugins marketplace add ylxmf2005/swcc
-claude plugins install swcc
+claude plugins install swcc@swcc
 
 # 在任意项目中
 /zhili 给这个项目加 JWT 认证
